@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="699.0" prefWidth="700.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cincuentazo.controllers.WelcomeController">
+   <children>
+      <ImageView fitHeight="689.0" fitWidth="689.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cincuentazo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="221.0" layoutY="481.0" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: BLACK;" text=" INGRESE MÁQUINAS A JUGAR :" textFill="#ffb507">
+         <font>
+            <Font name="Cambria Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="maquinasTextField" alignment="CENTER" layoutX="327.0" layoutY="514.0" prefHeight="27.0" prefWidth="47.0" style="-fx-border-color: BLACK;" />
+      <Button fx:id="playButton" layoutX="310.0" layoutY="556.0" mnemonicParsing="false" onAction="#onHandlePlayButton" prefHeight="40.0" prefWidth="82.0" style="-fx-border-color: #ffb507; -fx-background-color: BLACK;" text="PLAY" textFill="#ffb507">
+         <font>
+            <Font name="Cambria Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="instructionsButton" layoutX="6.0" layoutY="4.0" mnemonicParsing="false" onAction="#onHandleInstructionsButton" prefHeight="26.0" prefWidth="689.0" style="-fx-background-color: BLACK; -fx-border-color: WHITE;" text="INSTRUCTIONS (?)" textFill="WHITE" underline="true">
+         <font>
+            <Font name="Cambria Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
