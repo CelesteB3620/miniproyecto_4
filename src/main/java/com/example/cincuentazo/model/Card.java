@@ -7,13 +7,15 @@ public class Card {
     private static final String PATH = "/com/example/images/cards/";
     private String suit;
     private int value;
+    private int id;
     private Image cardImage;
 
-    public Card(String suit, int value) {
+    public Card(String suit, int value, int id) {
         this.suit = suit;
         this.value = value;
+        this.id = id;
         this.cardImage = new Image(
-                getClass().getResourceAsStream(PATH + this.value + "-" + this.suit + ".png")
+                getClass().getResourceAsStream(PATH + this.id + "-" + this.suit + ".png")
         );
     }
 
