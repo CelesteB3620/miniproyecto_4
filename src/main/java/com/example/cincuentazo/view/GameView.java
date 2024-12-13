@@ -31,7 +31,7 @@ public class GameView extends Stage {
         this.gameController = loader.getController();
 
         // Set the window title
-        this.setTitle("Batalla Naval");
+        this.setTitle("CINCUENTAZO");
 
         // Create the scene with the loaded root element
         Scene scene = new Scene(root);
