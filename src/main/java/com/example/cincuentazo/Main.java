@@ -12,7 +12,7 @@ import java.io.IOException;
  * Main class to launch the JavaFX application.
  * This is the entry point of the program, where the JavaFX application starts.
  * It extends the Application class and overrides the start method to set up the initial scene.
- * @author Celeste Berrio - Leonardo Rios - Juan Montealegre
+ * @author Celeste Berrio - Leonardo Rios
  */
 public class Main extends Application {
 
