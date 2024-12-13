@@ -11,7 +11,7 @@ public class CardFactory {
 
         for (String suit : suits) {
             for (int i = 1; i <= 13; i++) {
-                if (i >= 2 && i <= 8 || i == 10){
+                if ((i >= 2 && i <= 8) || i == 10){
                     Card newCard = new Card(suit, i); //Cartas del 2 al 8 valen su número
                     deck.add(newCard);
                 }
