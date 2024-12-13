@@ -34,4 +34,12 @@ public class Card {
     public Image getCardImage() {
         return cardImage;
     }
+
+    public int getValue() {
+        return value;
+    }
+
+    public int getId() {
+        return id;
+    }
 }
