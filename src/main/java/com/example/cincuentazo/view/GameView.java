@@ -19,6 +19,7 @@ public class GameView extends Stage {
      * Loads the FXML file, sets the scene, title, and window icon.
      *
      * @throws IOException If there is an error loading the FXML file
+     * @autor Laura Celeste Berrio - Leonardo Rios Saavedra
      */
     public GameView() throws IOException {
         // Load the FXML file using FXMLLoader
@@ -35,11 +36,6 @@ public class GameView extends Stage {
 
         // Create the scene with the loaded root element
         Scene scene = new Scene(root);
-
-        // Set the window icon
-        /*this.getIcons().add(new Image(
-                getClass().getResourceAsStream("/com/example/cincuentazo/images/crucero.png")
-        ));*/
 
         // Set the scene for this stage
         this.setScene(scene);
