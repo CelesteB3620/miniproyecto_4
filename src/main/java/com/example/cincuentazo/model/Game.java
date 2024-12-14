@@ -66,6 +66,12 @@ public class Game {
         Collections.shuffle(deck);
     }
 
+    /**
+     * Draws a card from the main deck. If the deck is empty and there are enough cards on the table,
+     * it recycles the table cards into the main deck.
+     *
+     * @return The drawn card, or {@code null} if the main deck is empty after recycling.
+     */
     public Card drawCard() {
         if (mainDeck.isEmpty() && tableDeck.size() > 1) {
             recycleTableCards();
@@ -73,6 +79,10 @@ public class Game {
         return mainDeck.isEmpty() ? null : mainDeck.removeFirst();
     }
 
+    /**
+     * Recycles all table cards except the last card back into the main deck,
+     * then shuffles the deck to ensure randomness.
+     */
     private void recycleTableCards() {
         Card lastCard = tableDeck.removeLast();
         mainDeck.addAll(tableDeck);
@@ -81,65 +91,124 @@ public class Game {
         shuffleDeck(mainDeck);
     }
 
-
+    /**
+     * Retrieves the current cards on the table.
+     *
+     * @return A list of cards on the table.
+     */
     public ArrayList<Card> getTableDeck() {
         return tableDeck;
     }
 
-
+    /**
+     * Retrieves the deck of cards belonging to a specific player.
+     *
+     * @param playerIndex The index of the player whose deck is requested.
+     * @return The list of cards in the player's deck.
+     */
     public ArrayList<Card> getPlayerDeck(int playerIndex) {
         return playerDecks.get(playerIndex);
     }
 
+    /**
+     * Gets the index of the current player.
+     *
+     * @return The index of the current player in the active players list.
+     */
     public int getCurrentPlayer() {
         return activePlayers.get(currentPlayerIndex);
     }
 
-
+    /**
+     * Gets the current sum of card values on the table.
+     *
+     * @return The current sum of card values on the table.
+     */
     public int getTableCount() {
         return tableCount;
     }
 
+    /**
+     * Determines if the game is over, which happens when only one active player remains.
+     *
+     * @return {@code true} if the game is over, otherwise {@code false}.
+     */
     public boolean isGameOver() {
         return activePlayers.size() <= 1;
     }
 
+
+    /**
+     * Removes a specific card from a player's deck and adds it to the table.
+     *
+     * @param playerIndex The index of the player whose card will be removed.
+     * @param cardIndex   The index of the card to remove in the player's deck.
+     */
     public void removeCardFromDeck(int playerIndex, int cardIndex) {
         Card card = playerDecks.get(playerIndex).remove(cardIndex);
         tableDeck.add(card);
     }
 
+    /**
+     * Removes all cards from a player's deck and adds them to the main deck.
+     * Removes the player from the game after their deck is emptied.
+     *
+     * @param playerIndex The index of the player whose cards will be removed.
+     */
     public void removeAllCardsFromDeck(int playerIndex) {
         mainDeck.addAll(playerDecks.get(playerIndex));
         playerDecks.remove(playerIndex);
-        for (int i = 0; i < mainDeck.size(); i++) { // solo es para imprimir lo de la maquina y sus cartas se puede quitar luego
+        for (int i = 0; i < mainDeck.size(); i++) { // Debugging code to display the cards in the main deck.
             System.out.println(mainDeck.get(i).getId() + "-" + mainDeck.get(i).getSuit() + "-" + mainDeck.get(i).getValue());
         }
     }
 
+    /**
+     * Draws a card for a player and places it in their deck at a specified position.
+     *
+     * @param playerIndex The index of the player drawing a card.
+     * @param cardIndex   The index at which to insert the new card in the player's deck.
+     * @return The newly drawn card, or {@code null} if no card is available to draw.
+     */
     public Card drawCardForPlayer(int playerIndex, int cardIndex) {
         Card newCard = drawCard();
         if (newCard != null) {
             getPlayerDeck(playerIndex).add(cardIndex, newCard);
         }
-
         return newCard;
     }
 
+    /**
+     * Removes a player from the game, making them inactive.
+     *
+     * @param playerIndex The index of the player to be removed.
+     */
     public void removePlayer(int playerIndex) {
         activePlayers.remove((Integer) playerIndex);
     }
 
+    /**
+     * Adds a value to the current table sum.
+     *
+     * @param value The value to add to the table sum.
+     */
     public void addToTableSum(int value) {
         tableCount += value;
     }
 
+    /**
+     * Advances to the next player's turn in a circular manner.
+     */
     public void moveToNextPlayer() {
         currentPlayerIndex = (currentPlayerIndex + 1) % activePlayers.size();
     }
 
+    /**
+     * Retrieves the list of active players in the game.
+     *
+     * @return A list of indices representing active players.
+     */
     public ArrayList<Integer> getActivePlayers() {
         return activePlayers;
     }
-
 }
