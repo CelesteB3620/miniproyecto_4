@@ -10,7 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="699.0" prefWidth="887.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cincuentazo.controllers.GameController">
    <children>
-      <Button layoutX="4.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="880.0" style="-fx-background-color: BLACK; -fx-border-color: WHITE;" text="INSTRUCTIONS (?)" textFill="WHITE" underline="true">
+      <Button layoutX="4.0" layoutY="1.0" mnemonicParsing="false" onAction="#onHandleInstructionsButton" prefHeight="26.0" prefWidth="880.0" style="-fx-background-color: BLACK; -fx-border-color: WHITE;" text="INSTRUCTIONS (?)" textFill="WHITE" underline="true">
          <font>
             <Font name="Cambria Bold" size="12.0" />
          </font>
