@@ -3,6 +3,7 @@ package com.example.cincuentazo.controllers;
 import com.example.cincuentazo.model.Card;
 import com.example.cincuentazo.model.Game;
 import com.example.cincuentazo.view.alert.AlertBox;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -99,6 +100,11 @@ public class GameController {
 
                             }
                         });
+                    } else{
+                        new AlertBox().showAlert("INFORMATION", "¡El juego ha terminado!", "PERDISTE :(", Alert.AlertType.INFORMATION);
+                        playerDeck.getChildren().forEach(node -> node.setDisable(true));
+                        mainDeck.setDisable(true);
+
                     }
                 }
             });
@@ -149,7 +155,20 @@ public class GameController {
                         System.out.println("Machine " + currentPlayer + "-" + machineDeck.get(i).getId() + "-" + machineDeck.get(i).getSuit() + "-" + machineDeck.get(i).getValue());
                     }
 
+                    newGame.shuffleDeck(machineDeck);
+
                     for (Card card : machineDeck) {
+
+                        if (card.getId() == 1){
+                            Random random = new Random();
+                            int randomNum = random.nextInt(2);  // Genera 0 o 1
+                            int result = (randomNum == 0) ? 1 : 10;  // Si es 0, elige 1, si es 1, elige 10
+                            card.setValue(result);
+                            newGame.getPlayerDeck(currentPlayer).get(machineDeck.indexOf(card)).setValue(result);
+                        }
+
+                        removeCurrentPlayerIfNoValidCards();
+
                         if (newGame.getTableCount() + card.getValue() <= 50) { //validaciones iguales que las del jugador
                             int cardIndex = machineDeck.indexOf(card);
                             newGame.removeCardFromDeck(currentPlayer, cardIndex);
@@ -176,6 +195,8 @@ public class GameController {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
+            } else {
+                playerDeck.getChildren().forEach(node -> node.setDisable(false));
             }
         });
 
@@ -187,16 +208,31 @@ public class GameController {
         boolean hasValidCard = deck.stream().anyMatch(card -> newGame.getTableCount() + card.getValue() <= 50); //valida si la carta cumple con la suma
 
         if (!hasValidCard) {
-            newGame.removePlayer(playerIndex);
-            System.out.println("Jugador eliminado con indice " + playerIndex);
-            newGame.moveToNextPlayer();
+            if (playerIndex != 0){
+                newGame.moveToNextPlayer();
+                newGame.removePlayer(playerIndex);
+                newGame.removeAllCardsFromDeck(playerIndex);
 
-            if (newGame.isGameOver()) {
-                int winnerIndex = newGame.getActivePlayers().getFirst();
-                System.out.println("Juego terminado. Ganador: " + (winnerIndex == 0 ? "Jugador" : "Máquina " + winnerIndex) + "!");
+                Platform.runLater(() -> {
+                    new AlertBox().showAlert("INFORMATION", "¡Jugador eliminado!", " Máquina " + playerIndex, Alert.AlertType.INFORMATION);
+                });
+
+            } else{
+                Platform.runLater(() -> {
+                    new AlertBox().showAlert("INFORMATION", "¡El juego ha terminado!", "PERDISTE :(", Alert.AlertType.INFORMATION);
+                });
                 playerDeck.getChildren().forEach(node -> node.setDisable(true));
                 mainDeck.setDisable(true);
             }
+            if (newGame.isGameOver()) {
+                int winnerIndex = newGame.getActivePlayers().getFirst();
+                Platform.runLater(() -> {
+                    new AlertBox().showAlert("INFORMATION", "¡El juego ha terminado!", "Ganador:" + (winnerIndex == 0 ? " Jugador" : " Máquina " + winnerIndex) + "!", Alert.AlertType.INFORMATION);
+                });
+                playerDeck.getChildren().forEach(node -> node.setDisable(true));
+                mainDeck.setDisable(true);
+            }
+
         }
 
     }
