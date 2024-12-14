@@ -1,0 +1,6 @@
+module:com.example.cincuentazo
+com.example.cincuentazo
+com.example.cincuentazo.controllers
+com.example.cincuentazo.model
+com.example.cincuentazo.view
+com.example.cincuentazo.view.alert

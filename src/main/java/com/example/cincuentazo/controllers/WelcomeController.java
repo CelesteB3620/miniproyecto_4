@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Controller for the WelcomeView. Handles user interactions and events
  * on the welcome screen for the "CINCUENTAZO" game.
- * @autor Laura Celeste Berrio - Leonardo Rios Saavedra
+ * @author Laura Celeste Berrio - Leonardo Rios Saavedra
  */
 public class WelcomeController {
 

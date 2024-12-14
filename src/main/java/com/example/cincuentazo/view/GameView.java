@@ -19,7 +19,7 @@ public class GameView extends Stage {
      * Loads the FXML file, sets the scene, title, and window icon.
      *
      * @throws IOException If there is an error loading the FXML file
-     * @autor Laura Celeste Berrio - Leonardo Rios Saavedra
+     * @author Laura Celeste Berrio - Leonardo Rios Saavedra
      */
     public GameView() throws IOException {
         // Load the FXML file using FXMLLoader
