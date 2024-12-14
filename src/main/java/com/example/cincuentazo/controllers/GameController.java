@@ -23,7 +23,7 @@ import javafx.application.Platform;
 /**
  * Controller for the game view in the "CINCUENTAZO" game.
  * Manages the gameplay logic, user interactions, and updates the game interface.
- * @autor Laura Celeste Berrio - Leonardo Rios Saavedra
+ * @author Laura Celeste Berrio - Leonardo Rios Saavedra
  */
 public class GameController {
 
