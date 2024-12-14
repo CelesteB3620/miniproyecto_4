@@ -2,11 +2,15 @@ package com.example.cincuentazo.controllers;
 
 import com.example.cincuentazo.model.Card;
 import com.example.cincuentazo.model.Game;
+import com.example.cincuentazo.view.alert.AlertBox;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -61,6 +65,7 @@ public class GameController {
                     System.out.println("Suma en la mesa: " + newGame.getTableCount());
                     int cardIndex = playerDeck.getChildren().indexOf(playerCard); // identifica el index del image view del hbox donde hace el clic
                     Card playedCard = newGame.getPlayerDeck(0).get(cardIndex); // Trae la carta del arreglo del jugador del mismo indice
+                    optionCardAs(playedCard);
 
                     if (newGame.getTableCount() + playedCard.getValue() <= 50) { //validacion de suma con el valor de la carta
                         newGame.removeCardFromDeck(0, cardIndex); //remueve la carta del arreglo y la pone en la mesa
@@ -92,6 +97,17 @@ public class GameController {
             });
         }
     }
+
+    public void optionCardAs (Card playedCard){
+
+        String[] options = {"1", "10"};
+        if (playedCard.getId() == 1){
+            String selectedValue = new AlertBox().showOptions("OPCIÓN CARTA As","Elige qué valor deseas tomar para la carta As", List.of(options));
+
+            if (selectedValue == "10") {
+                playedCard.setValue(10);
+            }
+    }}
 
     public void hideMachinesDeck(int machinesNumber) {
 
@@ -179,3 +195,4 @@ public class GameController {
 
 
 }
+
