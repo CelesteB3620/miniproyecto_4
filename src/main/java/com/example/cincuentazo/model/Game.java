@@ -18,7 +18,7 @@ public class Game {
         tableDeck = new ArrayList<>();
         playerDecks = new ArrayList<>();
         activePlayers = new ArrayList<>();
-        shuffleDeck();
+        shuffleDeck(mainDeck);
 
         for(int i = 0; i < numPlayers; i++) {
 
@@ -40,8 +40,8 @@ public class Game {
         currentPlayerIndex = 0; // Inicia el jugador
     }
 
-    public void shuffleDeck() {
-        Collections.shuffle(mainDeck);
+    public void shuffleDeck(ArrayList<Card> deck) {
+        Collections.shuffle(deck);
     }
 
     public Card drawCard() {
@@ -56,7 +56,7 @@ public class Game {
         mainDeck.addAll(tableDeck);
         tableDeck.clear();
         tableDeck.add(lastCard);
-        shuffleDeck();
+        shuffleDeck(mainDeck);
     }
 
 
@@ -85,6 +85,14 @@ public class Game {
     public void removeCardFromDeck(int playerIndex, int cardIndex) {
         Card card = playerDecks.get(playerIndex).remove(cardIndex);
         tableDeck.add(card);
+    }
+
+    public void removeAllCardsFromDeck(int playerIndex) {
+        mainDeck.addAll(playerDecks.get(playerIndex));
+        playerDecks.remove(playerIndex);
+        for (int i = 0; i < mainDeck.size(); i++) { // solo es para imprimir lo de la maquina y sus cartas se puede quitar luego
+            System.out.println(mainDeck.get(i).getId() + "-" + mainDeck.get(i).getSuit() + "-" + mainDeck.get(i).getValue());
+        }
     }
 
     public Card drawCardForPlayer(int playerIndex, int cardIndex) {
