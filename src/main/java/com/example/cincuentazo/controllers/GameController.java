@@ -92,8 +92,6 @@ public class GameController {
             // Set up click handler for each player's card
             playerCard.setOnMouseClicked(event -> {
                 if (newGame.getCurrentPlayer() == 0) { // Check if it's the player's turn
-                    removeCurrentPlayerIfNoValidCards(); // Validate cards < 50
-
                     countLabel.setText("TOTAL MESA: " + newGame.getTableCount());
                     int cardIndex = playerDeck.getChildren().indexOf(playerCard);
                     Card playedCard = newGame.getPlayerDeck(0).get(cardIndex);
@@ -195,9 +193,9 @@ public class GameController {
                     Thread.sleep(2000 + new Random().nextInt(2000));
 
                     ArrayList<Card> machineDeck = newGame.getPlayerDeck(currentPlayer); // Get the machine's deck
-                    Platform.runLater(() -> turnosLabel.setText("TURNO MÁQUINA " + currentPlayer));
+                    Platform.runLater(() -> turnosLabel.setText("TURNO MÁQUINA " + newGame.getActivePlayers().get(currentPlayer)));
                     for (int i = 0; i < machineDeck.size(); i++) { // Log machine's cards (optional for debugging)
-                        System.out.println("Machine " + currentPlayer + "-" + machineDeck.get(i).getId() + "-" + machineDeck.get(i).getSuit() + "-" + machineDeck.get(i).getValue());
+                        System.out.println("Machine " + newGame.getActivePlayers().get(currentPlayer) + "-" + machineDeck.get(i).getId() + "-" + machineDeck.get(i).getSuit() + "-" + machineDeck.get(i).getValue());
                     }
 
                     newGame.shuffleDeck(machineDeck);
@@ -257,13 +255,21 @@ public class GameController {
 
         if (!hasValidCard) {
             if (playerIndex != 0) {
-                newGame.moveToNextPlayer();
+                int machineNumber = newGame.getActivePlayers().get(playerIndex);
                 newGame.removePlayer(playerIndex);
                 newGame.removeAllCardsFromDeck(playerIndex);
+                hideMachineDeck(machineNumber);
 
                 Platform.runLater(() -> {
-                    new AlertBox().showAlert("INFORMATION", "¡Jugador eliminado!", " Máquina " + playerIndex, Alert.AlertType.INFORMATION);
+                    new AlertBox().showAlert("INFORMATION", "¡Jugador eliminado!", " Máquina " + machineNumber, Alert.AlertType.INFORMATION);
                 });
+
+                if (newGame.getCurrentPlayer() == 0) {
+                    Platform.runLater(() -> turnosLabel.setText("TURNO JUGADOR"));
+                    playerDeck.getChildren().forEach(node -> node.setDisable(false)); // Enable human player's cards
+                }
+
+                removeCurrentPlayerIfNoValidCards();
 
             } else {
                 Platform.runLater(() -> {
@@ -272,20 +278,37 @@ public class GameController {
                 playerDeck.getChildren().forEach(node -> node.setDisable(true));
                 mainDeck.setDisable(true);
             }
-            if (newGame.isGameOver()) {
-                int winnerIndex = newGame.getActivePlayers().getFirst();
-                Platform.runLater(() -> {
-                    new AlertBox().showAlert("INFORMATION", "¡El juego ha terminado!", "Ganador:" + (winnerIndex == 0 ? " Jugador" : " Máquina " + winnerIndex) + "!", Alert.AlertType.INFORMATION);
-                });
-                playerDeck.getChildren().forEach(node -> node.setDisable(true));
-                mainDeck.setDisable(true);
-            }
+        }
 
+        if (newGame.isGameOver()) {
+            int winnerIndex = newGame.getActivePlayers().getFirst();
+            Platform.runLater(() -> {
+                new AlertBox().showAlert("INFORMATION", "¡El juego ha terminado!", "Ganador:" + (winnerIndex == 0 ? " Jugador" : " Máquina " + winnerIndex) + "!", Alert.AlertType.INFORMATION);
+            });
+            playerDeck.getChildren().forEach(node -> node.setDisable(true));
+            mainDeck.setDisable(true);
         }
     }
 
     public void onHandleInstructionsButton(ActionEvent actionEvent) {
         new AlertBox().showAlert("INFORMATION", "INSTRUCCIONES DEL JUEGO", "El juego consiste en que cada jugador recibe 4 cartas del mazo principal y posteriormente se saca de ese mismo mazo 1 carta que se pone en la mesa. Cada jugador en su turno debe escoger una carta, ponerla en la mesa y sacar una carta del mazo que reemplace la que acaba de poner ya que siempre debe tener 4 cartas, las cartas en la mesa se irán sumando y el jugador que en su turno ponga una carta que al sumarse con las cartas de la mesa sobrepase la cuenta de 50 perderá y saldrá del juego. El juego continúa hasta que solo quede un jugador. Las cartas tienen los siguientes valores:  las cartas del 2 al 8 y el 10 suman su número, las cartas con el número 9 ni suman ni restan o sea valen 0, las cartas con las letras J, Q y K restan 10, las cartas con la letra A suman 1 o 10 según lo que escoja el jugador. Usted puede jugar hasta contra 3 jugadores.", Alert.AlertType.INFORMATION);
+    }
+
+    public void hideMachineDeck(int machineNumber) {
+
+        switch(machineNumber) {
+            case 1:
+                machine1.setImage(null);
+                break;
+            case 2:
+                machine2.setImage(null);
+                break;
+            case 3:
+                machine3.setImage(null);
+                break;
+            default:
+                break;
+        }
     }
 
 
