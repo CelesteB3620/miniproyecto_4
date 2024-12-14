@@ -31,7 +31,7 @@
          <image>
             <Image url="@../images/cards/hidden-deck.png" />
          </image></ImageView>
-      <ImageView fx:id="tableDeck" fitHeight="205.0" fitWidth="170.0" layoutX="503.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="tableDeck" fitHeight="205.0" fitWidth="158.0" layoutX="503.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true" />
       <HBox fx:id="playerDeck" layoutX="104.0" layoutY="480.0" prefHeight="100.0" prefWidth="200.0">
          <children>
             <ImageView fx:id="playerCard1" fitHeight="205.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" />
@@ -40,9 +40,34 @@
             <ImageView fx:id="playerCard4" fitHeight="205.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
-      <Label fx:id="countLabel" alignment="CENTER" layoutX="14.0" layoutY="262.0" prefHeight="49.0" prefWidth="209.0" text="Cuenta en:" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="countLabel" alignment="CENTER" layoutX="691.0" layoutY="292.0" prefHeight="49.0" prefWidth="182.0" textAlignment="CENTER" underline="true" wrapText="true">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font name="Cambria Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="turnosLabel" alignment="CENTER" layoutX="353.0" layoutY="426.0" prefHeight="49.0" prefWidth="182.0" textAlignment="CENTER" underline="true" wrapText="true">
+         <font>
+            <Font name="Cambria Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="38.0" layoutY="107.0" prefHeight="26.0" prefWidth="170.0" rotate="-90.0" text="MÁQUINAS" textAlignment="CENTER" textFill="#e81414" wrapText="true">
+         <font>
+            <Font name="Cambria Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="123.0" layoutY="328.0" prefHeight="26.0" prefWidth="170.0" rotate="-90.0" text="MAZO" textAlignment="CENTER" textFill="#e81414" wrapText="true">
+         <font>
+            <Font name="Cambria Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="388.0" layoutY="328.0" prefHeight="26.0" prefWidth="170.0" rotate="-90.0" text="MESA" textAlignment="CENTER" textFill="#e81414" wrapText="true">
+         <font>
+            <Font name="Cambria Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="-17.0" layoutY="570.0" prefHeight="26.0" prefWidth="170.0" rotate="-90.0" text="CARTAS" textAlignment="CENTER" textFill="#e81414" wrapText="true">
+         <font>
+            <Font name="Cambria Bold" size="21.0" />
          </font>
       </Label>
    </children>

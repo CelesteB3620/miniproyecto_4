@@ -23,6 +23,9 @@ public class GameController {
     @FXML Label countLabel;
 
     @FXML
+    private Label turnosLabel;
+
+    @FXML
     private HBox playerDeck;
 
     @FXML
@@ -51,7 +54,8 @@ public class GameController {
 
         Card firstTableCard = newGame.getTableDeck().getFirst();
         tableDeck.setImage(firstTableCard.getCardImage());
-        countLabel.setText("Cuenta en la mesa: " + newGame.getTableCount());
+        countLabel.setText("TOTAL MESA: " + newGame.getTableCount());
+        turnosLabel.setText("TURNO JUGADOR");
 
         mainDeck.setDisable(true);
 
@@ -69,7 +73,7 @@ public class GameController {
                     removeCurrentPlayerIfNoValidCards(); // validacion automatica de que hay cartas validas para jugar <50
 
                     System.out.println("Suma en la mesa: " + newGame.getTableCount());
-                    countLabel.setText("Cuenta en la mesa: " + newGame.getTableCount());
+                    countLabel.setText("TOTAL MESA: " + newGame.getTableCount());
                     int cardIndex = playerDeck.getChildren().indexOf(playerCard); // identifica el index del image view del hbox donde hace el clic
                     Card playedCard = newGame.getPlayerDeck(0).get(cardIndex); // Trae la carta del arreglo del jugador del mismo indice
                     optionCardAs(playedCard);
@@ -78,7 +82,7 @@ public class GameController {
                         newGame.removeCardFromDeck(0, cardIndex); //remueve la carta del arreglo y la pone en la mesa
                         newGame.addToTableSum(playedCard.getValue());
                         System.out.println("Suma en la mesa: " + newGame.getTableCount());
-                        countLabel.setText("Cuenta en la mesa: " + newGame.getTableCount());
+                        countLabel.setText("TOTAL MESA: " + newGame.getTableCount());
                         playerCard.setImage(null); //Quita la imagen de la carta jugada en la interfaz
                         tableDeck.setImage(playedCard.getCardImage()); // la pone en la mesa
 
@@ -139,6 +143,7 @@ public class GameController {
 
     public void playMachineTurn() throws InterruptedException {
         executor.execute(() -> {
+
             removeCurrentPlayerIfNoValidCards();
 
             int currentPlayer = newGame.getCurrentPlayer(); //trae la maquina a jugar
@@ -150,7 +155,7 @@ public class GameController {
                     Thread.sleep(2000 + new Random().nextInt(2000));
 
                     ArrayList<Card> machineDeck = newGame.getPlayerDeck(currentPlayer); //trae el arreglo de la maquina en juego
-
+                    Platform.runLater(() -> turnosLabel.setText("TURNO MÁQUINA "+ currentPlayer));
                     for (int i = 0; i < machineDeck.size(); i++) { // solo es para imprimir lo de la maquina y sus cartas se puede quitar luego
                         System.out.println("Machine " + currentPlayer + "-" + machineDeck.get(i).getId() + "-" + machineDeck.get(i).getSuit() + "-" + machineDeck.get(i).getValue());
                     }
@@ -175,7 +180,7 @@ public class GameController {
                             tableDeck.setImage(card.getCardImage());
                             newGame.addToTableSum(card.getValue());
                             System.out.println("Suma despues de maquina: " + newGame.getTableCount());
-                            Platform.runLater(() -> countLabel.setText("Cuenta en la mesa: " + newGame.getTableCount()));
+                            Platform.runLater(() -> countLabel.setText("TOTAL MESA: " + newGame.getTableCount()));
 
                             // Simular tiempo entre 2 y 4 segundos para tomar una nueva carta
                             Thread.sleep(2000 + new Random().nextInt(2000));
@@ -184,6 +189,7 @@ public class GameController {
                             newGame.moveToNextPlayer(); //mueve al siguiente jugador en caso que sea otra maquina o ya el humano
 
                             if (newGame.getCurrentPlayer() == 0) {
+                                Platform.runLater(() -> turnosLabel.setText("TURNO JUGADOR"));
                                 playerDeck.getChildren().forEach(node -> node.setDisable(false)); //si los turno maquina ya acabaron habilito de nuevo las cartas del jugador humano
                             } else {
                                 playMachineTurn(); // siguiente maquina en caso de no terminar aqui

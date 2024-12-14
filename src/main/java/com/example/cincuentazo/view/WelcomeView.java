@@ -17,9 +17,6 @@ public class WelcomeView extends Stage {
         Parent root = loader.load(); // Cargar la raíz desde el archivo FXML
         this.setTitle("CINCUENTAZO"); // Establecer el título de la ventana
         Scene scene = new Scene(root); // Crear la escena con la raíz cargada
-//        this.getIcons().add(new Image(
-//                getClass().getResourceAsStream("/com/example/cincuentazo/images/.png")
-//        )); // Establecer el icono de la ventana
         this.setScene(scene); // Establecer la escena en la ventana
         setResizable(false);
         this.show(); // Mostrar la ventana
