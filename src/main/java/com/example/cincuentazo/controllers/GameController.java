@@ -8,14 +8,18 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.control.Label;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import javafx.application.Platform;
 
 public class GameController {
+
+    @FXML Label countLabel;
 
     @FXML
     private HBox playerDeck;
@@ -46,6 +50,7 @@ public class GameController {
 
         Card firstTableCard = newGame.getTableDeck().getFirst();
         tableDeck.setImage(firstTableCard.getCardImage());
+        countLabel.setText("Cuenta en la mesa: " + newGame.getTableCount());
 
         mainDeck.setDisable(true);
 
@@ -63,6 +68,7 @@ public class GameController {
                     removeCurrentPlayerIfNoValidCards(); // validacion automatica de que hay cartas validas para jugar <50
 
                     System.out.println("Suma en la mesa: " + newGame.getTableCount());
+                    countLabel.setText("Cuenta en la mesa: " + newGame.getTableCount());
                     int cardIndex = playerDeck.getChildren().indexOf(playerCard); // identifica el index del image view del hbox donde hace el clic
                     Card playedCard = newGame.getPlayerDeck(0).get(cardIndex); // Trae la carta del arreglo del jugador del mismo indice
                     optionCardAs(playedCard);
@@ -71,6 +77,7 @@ public class GameController {
                         newGame.removeCardFromDeck(0, cardIndex); //remueve la carta del arreglo y la pone en la mesa
                         newGame.addToTableSum(playedCard.getValue());
                         System.out.println("Suma en la mesa: " + newGame.getTableCount());
+                        countLabel.setText("Cuenta en la mesa: " + newGame.getTableCount());
                         playerCard.setImage(null); //Quita la imagen de la carta jugada en la interfaz
                         tableDeck.setImage(playedCard.getCardImage()); // la pone en la mesa
 
@@ -149,6 +156,7 @@ public class GameController {
                             tableDeck.setImage(card.getCardImage());
                             newGame.addToTableSum(card.getValue());
                             System.out.println("Suma despues de maquina: " + newGame.getTableCount());
+                            Platform.runLater(() -> countLabel.setText("Cuenta en la mesa: " + newGame.getTableCount()));
 
                             // Simular tiempo entre 2 y 4 segundos para tomar una nueva carta
                             Thread.sleep(2000 + new Random().nextInt(2000));
