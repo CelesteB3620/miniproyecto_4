@@ -116,6 +116,10 @@ public class Game {
      * @return The index of the current player in the active players list.
      */
     public int getCurrentPlayer() {
+        return activePlayers.get(currentPlayerIndex);
+    }
+
+    public int getCurrentPlayerIndex() {
         return currentPlayerIndex;
     }
 
@@ -186,8 +190,8 @@ public class Game {
     public void removePlayer(int playerIndex) {
         activePlayers.remove((Integer) playerIndex);
 
-        if (currentPlayerIndex >= activePlayers.size()) {
-            currentPlayerIndex = 0;
+        if (currentPlayerIndex >= (activePlayers.size()-1)) {
+            this.currentPlayerIndex = 0;
         }
     }
 
