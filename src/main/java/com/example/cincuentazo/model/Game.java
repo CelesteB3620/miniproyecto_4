@@ -190,7 +190,7 @@ public class Game {
     public void removePlayer(int playerIndex) {
         activePlayers.remove(playerIndex);
 
-        if (currentPlayerIndex >= (activePlayers.size()-1)) {
+        if (currentPlayerIndex >= activePlayers.size()) {
             this.currentPlayerIndex = 0;
         }
     }
