@@ -187,7 +187,6 @@ public class GameController {
     public void playMachineTurn() {
         executor.execute(() -> {
             try {
-
                 int currentPlayer = newGame.getCurrentPlayer();
 
                 if (currentPlayer != 0) {
@@ -237,6 +236,10 @@ public class GameController {
                         newGame.moveToNextPlayer();
                     }
 
+                    if(isGameOver()) {
+                        return;
+                    }
+
                     if (newGame.getCurrentPlayer() == 0) {
                         Platform.runLater(() -> {
                             turnosLabel.setText("TURNO JUGADOR");
@@ -272,6 +275,13 @@ public class GameController {
                     newGame.removeAllCardsFromDeck(newGame.getActivePlayers().indexOf(currentPlayer));
                     newGame.removePlayer(newGame.getActivePlayers().indexOf(currentPlayer));
                     hideMachineDeck(currentPlayer);
+
+                    for(int i = 0; i < newGame.getActivePlayers().size(); i++) {
+                        System.out.println(newGame.getActivePlayers().get(i));
+                        for(int j = 0; j < newGame.getPlayerDeck(i).size(); j++) {
+                            System.out.println(newGame.getPlayerDeck(i).get(i).getId() + "-" + newGame.getPlayerDeck(i).get(i).getSuit() + "- value:" + newGame.getPlayerDeck(i).get(i).getValue());
+                        }
+                    }
 
                     Platform.runLater(() -> {
                         new AlertBox().showAlert("INFORMATION", "¡Jugador eliminado!", " Máquina " + currentPlayer, Alert.AlertType.INFORMATION);
