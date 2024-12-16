@@ -188,7 +188,7 @@ public class Game {
      * @param playerIndex The index of the player to be removed.
      */
     public void removePlayer(int playerIndex) {
-        activePlayers.remove((Integer) playerIndex);
+        activePlayers.remove(playerIndex);
 
         if (currentPlayerIndex >= (activePlayers.size()-1)) {
             this.currentPlayerIndex = 0;
