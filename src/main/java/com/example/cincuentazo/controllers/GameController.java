@@ -276,13 +276,6 @@ public class GameController {
                     newGame.removePlayer(newGame.getActivePlayers().indexOf(currentPlayer));
                     hideMachineDeck(currentPlayer);
 
-                    for(int i = 0; i < newGame.getActivePlayers().size(); i++) {
-                        System.out.println(newGame.getActivePlayers().get(i));
-                        for(int j = 0; j < newGame.getPlayerDeck(i).size(); j++) {
-                            System.out.println(newGame.getPlayerDeck(i).get(i).getId() + "-" + newGame.getPlayerDeck(i).get(i).getSuit() + "- value:" + newGame.getPlayerDeck(i).get(i).getValue());
-                        }
-                    }
-
                     Platform.runLater(() -> {
                         new AlertBox().showAlert("INFORMATION", "¡Jugador eliminado!", " Máquina " + currentPlayer, Alert.AlertType.INFORMATION);
                     });
